@@ -1,6 +1,49 @@
 <?php
 include('header.php');
 ?>
+<?php
+if(!isset($_SESSION['loginSession'])){
+    echo "jest sesja";
+}else{
+
+
+
+if(isset($_POST['submit'])){
+    $login=htmlspecialchars($_POST['login']);
+    $pass=htmlspecialchars($_POST['password']);
+    echo $login . " " . $pass; 
+    $conn = mysqli_connect('localhost', 'Josef', '123', 'Portal');
+    if (!$conn){
+        echo 'Błąd połączenia z bazą danych. Error : ' . mysqli_connect_error();
+
+
+}else {
+    $sqlSelect='SELECT Login, Haslo FROM users';
+    $result= mysqli_query($conn,$sqlSelect);
+    $users = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    $flag = true;
+    foreach ($users as $user){
+        // echo $user['Login'] . "-" . $user['Haslo'] . "<br>";
+        if ($user['Login'] == $login && $user['Haslo']==$pass){
+            echo "Jestem zapisany w bazie ";
+            $flag= false;
+            $_SESSION['loginSession']='start';
+            header('location: login.php');
+            
+            break;}
+        // }else{
+        //     echo "Błędnie podałeś login lub hasło";
+        // }
+    }
+}if ($flag) echo "Błędnie podałeś login lub hasło";
+}
+?>
+
+
+
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -21,8 +64,10 @@ include('header.php');
                     <input type="password" class="form-control" id="inputPassword3" name="password">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Log In</button>
+            <button type="submit" class="btn btn-primary" name="submit">Log In</button>
             <button type="cancel" class="btn btn-primary">Cancel</button>
         </form>
     </div>
 </div>
+
+<?php } ?>

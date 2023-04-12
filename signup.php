@@ -117,7 +117,7 @@ placeholder="nazwa@mail.com
 // else
 //     echo "błędne hasło.";
 if($error[0] == "" && $error[1] == "" && $error[2] == "" && $error[3] == "" && $error[4] == "" && $error[5] && isset($_POST['submit'])){
-    $conn = mysqli_connect('localhost', 'webPLA', '', 'Portal');
+    $conn = mysqli_connect('localhost', 'Josef', '123', 'Portal');
         if(!$conn){
             echo 'błąd połączenia z bazą danych. error : ' . mysqli_connect_error();
         }
