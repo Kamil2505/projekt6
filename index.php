@@ -110,7 +110,7 @@
     <h5 class="card-title">Zaloguj się</h5>
     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="sigin.php" class="card-link">Zaloguj się</a>
+    <a href="signin.php" class="card-link">Zaloguj się</a>
   </div>
 </div></div>
     </div>

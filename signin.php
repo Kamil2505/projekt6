@@ -1,81 +1,28 @@
-<?php include('header.php'); ?>
 <?php
-$error=array("","","","","",true);
-if(isset($_POST['submit'])){
-    $login=htmlspecialchars($_POST['login']);
-    if ($login == "" || strlen($login) < 3) {
-        $error[2] = "Brak Loginu";
-    
-    }
-    $haslo1=htmlspecialchars($_POST['haslo1']);
-  
-            
-    $haslo1= $_POST['haslo1'];
-     $login= $_POST['login'];
-        // echo $nazwisko;
-        // echo $imie;
-        // echo $haslo1;
-        // echo $email;
-        // echo $login;
-        if(!empty($_POST['submit'])){
-            $error[5]=true;
-        }else {
-            $error[5]=false;
-        }
-}
-
+include('site/header.php');
 ?>
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <!-- <form action="signup.php" method="post"> -->
-            <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
-            <div class="mb-3">
-                <?php
-                if($error[0]!=""){
-
-                
-                ?>
-
-
-                
-            
-                <label class="alert alert-warning"><?php echo $error[2]; ?></label>
-<?php } ?>
-                <input type="text"id="login" placeholder="Login" name="login" class="form-control" aria-labelledby="passwordHelpBlock">
-                <label for="exampleFormControlInput1" class="form-label"></label>
-                <div class="mb-3">
-                <?php
-                if($error[3]!=""){
-
-                
-                ?>
-            
-               
-<?php } ?>
-                <label for="inputPassword5" class="form-label">Password</label>
-                <input type="password" name="haslo1" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock">
-                
-
-                
-        
-              
-<input type="submit" value="Zaloguj się" name="submit">
-<input type="reset" value="Wyczyść">
-
-
+            <h1>Logowanie</h1>
         </div>
     </div>
+    <div class="row">
+        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Login</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" name="login">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword3" name="password">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+            <button type="cancel" class="btn btn-primary">Cancel</button>
+        </form>
+    </div>
 </div>
-
-<?php
-if ($error[0] == "" && $error[1] == "" && $error[2] == "" && $error[3] == "" && $error[4] == "" && $error[5]) {
-    $conn = mysqli_connect('localhost', 'Josef', '123', 'portal');
-    if (!$conn) {
-        echo ' NIE POŁĄCZONO Z BAZĄ! Error: '.mysqli_connect_error() ; 
-    }else{
-    echo 'Połączono z bazą';
-
-} 
-}
-?>
