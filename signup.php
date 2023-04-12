@@ -130,8 +130,8 @@ if($error[0] == "" && $error[1] == "" && $error[2] == "" && $error[3] == "" && $
             echo $_POST['haslo1'];
             $datadodania = date("Y-m-d");
             // zmienne 
-        $sql = "INSERT INTO users( imie, nazwisko, login, mail, haslo, regulamin, dataDodania)
-         VALUES ('$imie','$nazwisko','$login','$mail','$haslo1','true','$datadodania')";
+        $sql = "INSERT INTO users( Imię, Nazwisko, Login, Mail, Haslo, regulamin, dataDodania)
+         VALUES ('$imie','$nazwisko','$login','$mail','$haslo1', true,'$datadodania')";
         mysqli_query($conn, $sql);
         mysqli_close($conn);
         }
