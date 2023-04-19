@@ -1,49 +1,5 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-9">
-        <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">LOGO</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-        </div>
-    </div>
-</div>
+<?php include('header.php'); ?>
 
 
        <header>
@@ -117,9 +73,14 @@
 </div>
 
 
+
 <div class="container-fluid py-5">
-        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-        <button class="btn btn-primary btn-lg" type="button">Example button</button>
+        <p class="col-md-8 fs-4">WYLOGUJ SIĘ</p>
+        <form action="logout.php" method="post">
+    <input type="submit" name="logout" value="Wyloguj">
+</form>
+      </div>
+
       </div>
 
       <div class="container">
@@ -173,6 +134,4 @@
     2 days ago
   </div>
 </div>
-<script src="js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php include('footer.php'); ?>

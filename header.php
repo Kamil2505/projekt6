@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PL">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,13 +22,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php">Strona Główna</a>
+          <a class="nav-link" href="kontakt.php">Kontakt</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="kursy.php">Kursy</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
@@ -40,5 +40,6 @@
         </div>
     </div>
 </div>
+<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

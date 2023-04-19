@@ -1,73 +1,90 @@
-<?php
-include('header.php');
-?>
-<?php
-if(!isset($_SESSION['loginSession'])){
+<?php include('header.php'); ?>
+    
+<?php 
+session_start();
+if (isset($_SESSION['loginSession'])){
     echo "jest sesja";
+    // unset($_SESSION['loginSession']);
 }else{
-
-
-
-if(isset($_POST['submit'])){
-    $login=htmlspecialchars($_POST['login']);
-    $pass=htmlspecialchars($_POST['password']);
-    echo $login . " " . $pass; 
-    $conn = mysqli_connect('localhost', 'Josef', '123', 'Portal');
-    if (!$conn){
-        echo 'Błąd połączenia z bazą danych. Error : ' . mysqli_connect_error();
-
-
-}else {
-    $sqlSelect='SELECT Login, Haslo FROM users';
-    $result= mysqli_query($conn,$sqlSelect);
-    $users = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    $flag = true;
-    foreach ($users as $user){
-        // echo $user['Login'] . "-" . $user['Haslo'] . "<br>";
-        if ($user['Login'] == $login && $user['Haslo']==$pass){
-            echo "Jestem zapisany w bazie ";
-            $flag= false;
-            $_SESSION['loginSession']='start';
-            header('location: login.php');
+    if (isset($_POST['submit'])){
+        $login=htmlspecialchars($_POST['login']);
+        $pass =htmlspecialchars($_POST['password']);
+//  echo $login. " " .$pass."<br>";
+        $conn = mysqli_connect('localhost', 'Josef', '123', 'portal');
+        if(!$conn){
+            echo "błąd". mysqli_connect_error();
+        } else {
+        $sqlSelect = 'SELECT Login, Haslo FROM users';
+        $result = mysqli_query($conn, $sqlSelect);
+        $users= mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $flag=true;
+        foreach ($users as $user){
+        // echo $user['login']. " - " . $user['haslo']."<br>";
+        
+            if($user['Login']==$login && $user['Haslo']==$pass){
+                echo "prawidłowe";
+                $flag= false;
+                $_SESSION['loginSession']=$login;
+                header('location: signin.php');
+                // break;
             
-            break;}
-        // }else{
-        //     echo "Błędnie podałeś login lub hasło";
+            } //else {
+        //     echo "błąd";
         // }
     }
-}if ($flag) echo "Błędnie podałeś login lub hasło";
+} if ($flag) echo "błąd";
+
 }
+
 ?>
-
-
-
-
-
-
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Logowanie</h1>
+            <!-- <form action="signup.php" method="post"> -->
+            <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
+                <h2>zaloguj</h2>
+               
+                <div class="mb-3">
+                  
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="login" name="login">
+                </div>
+               
+                <div class="mb-3">
+                   
+                    <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="hasło" name="password">
+                </div>
+             
+             
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary mb-3" name="submit">zaloguj</button>
+                    <button type="cancel" class="btn btn-primary mb-3">Wyczyść</button>
+                </div>
+            </form>
         </div>
-    </div>
-    <div class="row">
-        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Login</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" name="login">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" name="password">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary" name="submit">Log In</button>
-            <button type="cancel" class="btn btn-primary">Cancel</button>
-        </form>
     </div>
 </div>
 
+    <a href="index.php" >Przejdz na strone glowna</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php } ?>
+</body>
+<?php include('footer.php'); ?>
+</html>
