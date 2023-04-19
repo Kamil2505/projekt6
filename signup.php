@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 <?php
-$error = array("", "", "", "", "",true);
+$error = array("", "", "", "", "",true,"");
 if (isset($_POST['submit'])) {
     $imie = htmlspecialchars($_POST['imie']);
     if ($imie == "" || strlen($imie) < 3) {
@@ -33,6 +33,13 @@ if (isset($_POST['submit'])) {
         $error[5]=true;
     } else {
         $error[5]=false;
+    }
+    $code = htmlspecialchars($_POST['code']);
+    $codesave=htmlspecialchars($_POST['codesave']);
+    if($code == $codesave){
+        $error[6]=true;
+    }else {
+        $error[6]=false;
     }
 }
 ?>
@@ -90,12 +97,32 @@ placeholder="nazwa@mail.com
                 <div class="mb-3">
                     <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="powtórz hasło" name="haslo2">
                 </div>
+                <div class="row justify-content-start formularz">
+                <div class="col-xl-2 col-md-4 alert alert-success text-center">
+                    <?php
+                    $tmp = '';
+                    $kod = array();
+                    for ($i = 0; $i < 4; $i++) {
+                        $kod[] = rand(0, 9);
+                        echo $kod[$i];
+                        $tmp .= $kod[$i];
+                    }
+
+                    // print_r($kod);
+                    ?>
+                    <input type="hidden" value="<?php echo $tmp; ?>" name="codesave">
+                    <!-- <br>Dodać zabezpieczenie do wysłania wiadomości. -->
+                </div>
+                <div class="col-xl-4 col-md-8">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Wpisz kod do wysłania" name="code">
                 <div class="form-check">
+                    
                     <?php
                     if(!$error[5]) {
                         ?>
                         <label for="" class="alert alert-warning">zaaceptuj regulamin</label>
                     <?php } ?>
+                    
                     <input class="form-check-input" type="checkbox" value="regulamin" id="flexCheckChecked" name="regulamin">
                     <label class="form-check-label" for="flexCheckChecked">
                         Akceptuje regulamin strony Internetowej.
@@ -104,6 +131,7 @@ placeholder="nazwa@mail.com
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary mb-3" name="submit">Załóż konto</button>
                     <button type="reset" class="btn btn-primary mb-3">Wyczyść</button>
+                    
                 </div>
             </form>
         </div>
@@ -116,24 +144,50 @@ placeholder="nazwa@mail.com
 //     echo "dobre hasło.";
 // else
 //     echo "błędne hasło.";
-if($error[0] == "" && $error[1] == "" && $error[2] == "" && $error[3] == "" && $error[4] == "" && $error[5] && isset($_POST['submit'])){
+if($error[0] == "" && $error[1] == "" && $error[2] == "" && $error[3] == "" && $error[4] == "" && $error[5] &&  isset($_POST['submit']) && $error[6]){
     $conn = mysqli_connect('localhost', 'Josef', '123', 'Portal');
         if(!$conn){
             echo 'błąd połączenia z bazą danych. error : ' . mysqli_connect_error();
         }
         else{
-            echo 'połączono z bazą';
-            echo $_POST['imie'];
-            echo $_POST['nazwisko'];
-            echo $_POST['login'];
-            echo $_POST['mail'];
-            echo $_POST['haslo1'];
+            $flagLogin=true;
+            $flagMail=true;
+            $sqlSelect = 'SELECT Login, Mail FROM users';
+            $result = mysqli_query($conn, $sqlSelect);
+            $users= mysqli_fetch_all($result, MYSQLI_ASSOC);
+            foreach ($users as $user1) {
+                // echo $user1['Login'] . " " . $user1['Mail'];
+                if($user1['Login']==$login){
+                    $flagMail=false;
+                    break;
+                    // echo "<h1> ISTNIEJE </h1>";
+                }
+            }
+            foreach($users as $user2){
+                // echo $users2['Login'] . " " . $user2['Mail'];
+                if($user2['Mail'] ==$mail){
+                    $flagMail=false;
+                    break;
+                    // echo "<h1> ISTNIEJE";
+                }
+            }
+            if($flagLogin && $flagMail){
+            // echo 'połączono z bazą';
+            // echo $_POST['imie'];
+            // echo $_POST['nazwisko'];
+            // echo $_POST['login'];
+            // echo $_POST['mail'];
+            // echo $_POST['haslo1'];
             $datadodania = date("Y-m-d");
             // zmienne 
         $sql = "INSERT INTO users( Imię, Nazwisko, Login, Mail, Haslo, regulamin, dataDodania)
          VALUES ('$imie','$nazwisko','$login','$mail','$haslo1', true,'$datadodania')";
         mysqli_query($conn, $sql);
-        mysqli_close($conn);
+        echo 'dodano';
+            }else {
+                echo 'Podany login lub mail istnieje';
+            }
+            mysqli_close($conn);
         }
 }
 ?> 
